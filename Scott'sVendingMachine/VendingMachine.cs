@@ -8,15 +8,15 @@ namespace Scott_sVendingMachine
 {
     public class VendingMachine
     {
-        List<Confectionary> inventory {get; set;} = new()
+        public List<Confectionary> inventory {get; set;} = new()
         {
-            new Confectionary("Snickers", 5, 25),
-            new Confectionary("Kitkat", 5, 20),
-            new Confectionary("Milkyway", 5, 30),
+            new Confectionary(1, "Snickers", 5, 25),
+            new Confectionary(2, "Kitkat", 5, 20),
+            new Confectionary(3, "Milkyway", 5, 30),
         };
         Payment payment = new();
 
-
+        
 
         public void Start()
         {
@@ -30,11 +30,24 @@ namespace Scott_sVendingMachine
                     case '1':
                         ChooseProduct();
                         char productChoise = Console.ReadKey().KeyChar;
-                        if (productChoise == '1' && CheckInventory(Convert.ToString(productChoise)) == true)
+                        if (CheckInventory(Convert.ToInt32(productChoise)) == true)
                         {
-                            Console.WriteLine($"please choose payment type: 1: {PaymentID.Cash}\n2: {PaymentID.Vipps}");
+                            Console.WriteLine($"please choose payment type:\n 1: {PaymentID.Vipps}\n2: {PaymentID.Cash}");
                             char paymentChoise = Console.ReadKey().KeyChar;
-                            payment.PaymentType(paymentChoise);
+
+                            payment.PaymentType(paymentChoise, productChoise);
+
+                            Console.WriteLine("Payment complete");
+                            Console.WriteLine($"Giving out {productChoise}");
+                            if (payment.Money > 0)
+                            {
+                                Console.WriteLine($"Paying out {payment.Money} in change");
+                                payment.Money = 0;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{productChoise} is out of stock, please choose another product.");
                         }
                         break;
                     case '2':
@@ -51,16 +64,16 @@ namespace Scott_sVendingMachine
 
         }
 
-        private bool CheckInventory(string productChoise)
+        private bool CheckInventory(int productChoise)
         {
             bool inventoryResult = true;
             foreach (Confectionary item in inventory)
             {
-                if (item.Name == productChoise && item.Nr > 0)
+                if (item.ProductID == productChoise && item.Stock > 0)
                 {
                     inventoryResult = true;
                 }
-                else if (item.Name == productChoise && item.Nr == 0)
+                else if (item.ProductID == productChoise && item.Stock == 0)
                 {
                     inventoryResult = false;
                 }
@@ -77,7 +90,8 @@ namespace Scott_sVendingMachine
             Console.WriteLine("-------");
             Console.WriteLine($"Inserted money: {payment.Money}");
             Console.WriteLine("-------\n\n");
-                
+
+                            
                 //Console.WriteLine("\n\nAvailable commands:");
                 //Console.WriteLine("insert (money) - Money put into money slot");
                 //Console.WriteLine("order (snickers, kitkat, milkyway) - Order from machines buttons");

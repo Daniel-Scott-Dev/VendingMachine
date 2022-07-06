@@ -6,7 +6,7 @@
         {
             VendingMachine vendingMachine = new();
 
-            //vendingMachine.Start();
+            vendingMachine.Start();
         }
     }
 }

@@ -8,14 +8,16 @@ namespace Scott_sVendingMachine
 {
     public class Confectionary
     {
+        public int ProductID { get; set; }
         public string Name { get; set; }
-        public int Nr { get; set; }
+        public int Stock { get; set; }
         public int Price { get; set; }
 
-        public Confectionary(string name, int nr, int price)
+        public Confectionary(int productID, string name, int stock, int price)
         {
+            ProductID = productID;
             Name = name;
-            Nr = nr;
+            Stock = stock;
             Price = price;
         }
     }

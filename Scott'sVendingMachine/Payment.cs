@@ -11,27 +11,36 @@ namespace Scott_sVendingMachine
         public double Money { get; set; }
 
 
-        public double PaymentType(PaymentID id)
+        public void PaymentType(char paymentChoise, char productChoise)
         {
-            VendingMachine vendingMachine = new();  
-            if (id == PaymentID.Vipps)
+            VendingMachine vendingMachine = new();
+            
+            int productPrice = 0;
+            if (paymentChoise == 1)
             {
-                foreach (Confectionary item in vendingMachine. )
+                ///Getting product price
+                foreach (Confectionary item in vendingMachine.inventory)
                 {
-
+                    if (productChoise == item.ProductID)
+                    {
+                        productPrice = item.Price;
+                    }
                 }
-                Console.WriteLine($"Send  to Vipps Nr: 47661550");
-
-
-                Money = amount;
+                Console.WriteLine($"Send {productPrice}$ to Vipps number: 47661550");
+                
+                /// Asuming payment is made to vending machine via Vipps
+                Money += Convert.ToDouble(productPrice);
             }
-            else if (id == PaymentID.Cash)
+            else if (paymentChoise == 2 && Money < productPrice)
             {
-                Console.WriteLine($"Insert {amount} into machine slot");
-                Money = amount;
+                Console.WriteLine($"Insert {(Money - productPrice)}$ or more into machine slot:");
+                /// Asuming payment is made with coins or notes
+                double moneyReceived = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine($"{moneyReceived}$ received");
+                Money += moneyReceived;
             }
 
-            return Money;
+            //make this method void and add a menu option of adding money upront?
         }
 
         public void GivesMoneyBack()
