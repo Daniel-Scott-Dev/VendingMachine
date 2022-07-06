@@ -33,5 +33,18 @@ namespace Scott_sVendingMachine
 
             return Money;
         }
+
+        public void GivesMoneyBack()
+        {
+            if (Money > 0)
+            {
+                Console.WriteLine($"{Money}$ payed out..");
+                Money = 0;
+            }
+            else
+            {
+                Console.WriteLine($"No funds to pay out. Current balance: {Money}$");
+            }
+        }
     }
 }

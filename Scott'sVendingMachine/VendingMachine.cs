@@ -38,7 +38,7 @@ namespace Scott_sVendingMachine
                         }
                         break;
                     case '2':
-                        GivesMoneyBack();
+                        payment.GivesMoneyBack();
                         break;
                     case '3':
                         keeprunning = false;
@@ -95,17 +95,6 @@ namespace Scott_sVendingMachine
             Console.WriteLine("3: Milkyway");
         }
 
-        public void GivesMoneyBack()
-        {
-            if (payment.Money > 0)
-            {
-                Console.WriteLine($"{payment.Money} payed out..");
-                payment.Money = 0;
-            }
-            else
-            {
-                Console.WriteLine($"No funds to pay out. Current balance: {payment.Money}");
-            }
-        }
+        
     }
 }
