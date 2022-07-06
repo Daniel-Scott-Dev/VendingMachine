@@ -32,7 +32,7 @@ namespace Scott_sVendingMachine
                         char productChoise = Console.ReadKey().KeyChar;
                         if (CheckInventory(Convert.ToInt32(productChoise)) == true)
                         {
-                            Console.WriteLine($"please choose payment type:\n 1: {PaymentID.Vipps}\n2: {PaymentID.Cash}");
+                            Console.WriteLine($"\nplease choose payment type:\n1: {PaymentID.Vipps}\n2: {PaymentID.Cash}");
                             char paymentChoise = Console.ReadKey().KeyChar;
 
                             payment.PaymentType(paymentChoise, productChoise);
@@ -104,9 +104,10 @@ namespace Scott_sVendingMachine
 
         public void ChooseProduct()
         {
-            Console.WriteLine("1: Snickers");
+            Console.WriteLine("\n1: Snickers");
             Console.WriteLine("2: Kitkat");
             Console.WriteLine("3: Milkyway");
+            Console.Write("\n> ");
         }
 
         
