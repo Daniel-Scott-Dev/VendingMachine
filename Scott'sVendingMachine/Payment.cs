@@ -13,7 +13,7 @@
 
         public void MakingPayment(char paymentChoise, char productChoise)
         {
-            //VendingMachine vendingMachine = new();
+            VendingMachine vendingMachine = new();
 
             int productPrice = vendingMachine.GettingProductPrice(productChoise);
 

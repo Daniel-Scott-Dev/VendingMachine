@@ -14,15 +14,23 @@ namespace Scott_sVendingMachine
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
         //change List til Dictionary
-        public Dictionary<Confectionary> Inventory {get; private set;} = new();
-        public List<Confectionary> Inventory {get; private set;} = new()
-        {
-            new Confectionary('1', "Snickers", 5, 25),
-            new Confectionary('2', "Kitkat", 5, 20),
-            new Confectionary('3', "Milkyway", 5, 30),
-        };
 
-        
+        public Dictionary<char, Confectionary> Inventory { get; set; } = new()
+        {
+            {'1', new Confectionary( "Snickers", 5, 25) },
+            {'2', new Confectionary( "Kitkat", 5, 25) },
+            {'3', new Confectionary( "Milkyway", 5, 25) },
+        };
+       
+
+        //public List<Confectionary> Inventory { get; private set; } = new()
+        //{
+        //    new Confectionary( "Snickers", 5, 25),
+        //    new Confectionary( "Kitkat", 5, 20),
+        //    new Confectionary( "Milkyway", 5, 30),
+        //};
+
+
         Payment payment = new();
 
         public void Start()
@@ -44,7 +52,7 @@ namespace Scott_sVendingMachine
 
                             payment.MakingPayment(paymentChoise, productChoise);
 
-                            string productName = ProductName();
+                            string productName = ProductName(productChoise);
                             Console.WriteLine($"Giving out {productName}");
                             payment.Money -= GettingProductPrice(productChoise);
 
@@ -74,11 +82,11 @@ namespace Scott_sVendingMachine
         private string ProductName(char productChoise)
         {
             string productName = "";
-            foreach (Confectionary inventoryItem in Inventory)
+            foreach (KeyValuePair<char, Confectionary> inventoryItem in Inventory)
             {
-                if (inventoryItem.Name == productChoise)
+                if (inventoryItem.Key == productChoise)
                 {
-                    productName = inventoryItem.Name;
+                    productName = inventoryItem.Value.Name;
                 }
                 
             }
@@ -88,14 +96,14 @@ namespace Scott_sVendingMachine
         private bool CheckInventory(char productChoise)
         {
             bool inventoryResult = false;
-            foreach (Confectionary product in Inventory)
+            foreach (KeyValuePair<char, Confectionary> product in Inventory)
             {
-                if (product.ProductID == productChoise && product.Stock > 0)
+                if (product.Key == productChoise && product.Value.Stock > 0)
                 {
                     inventoryResult = true;
                     return inventoryResult;
                 }
-                else if (product.ProductID == productChoise && product.Stock == 0)
+                else if (product.Key == productChoise && product.Value.Stock == 0)
                 {
                     inventoryResult = false;
                 }
@@ -127,7 +135,7 @@ namespace Scott_sVendingMachine
 
         public void ChooseProduct()
         {
-            Console.WriteLine("\n1: Snickers");
+            Console.WriteLine($"\n1: {Inventory.Values}");
             Console.WriteLine("2: Kitkat");
             Console.WriteLine("3: Milkyway");
             Console.Write("\n> ");
@@ -136,19 +144,19 @@ namespace Scott_sVendingMachine
         public int GettingProductPrice(char productChoise)
         {
             int productPrice = 0;
-            foreach (Confectionary inventoryItem in Inventory)
+            foreach (KeyValuePair<char, Confectionary> inventoryItem in Inventory)
             {
-                if (productChoise == inventoryItem.ProductID)
+                if (productChoise == inventoryItem.Key)
                 {
-                    productPrice = inventoryItem.Price;
+                    productPrice = inventoryItem.Value.Price;
                 }
             }
             return productPrice;
         }
 
-        public List<Confectionary> GetList()
-        {
-            return Inventory;
-        }
+        //public List<Confectionary> GetList()
+        //{
+        //    return Inventory;
+        //}
     }
 }
