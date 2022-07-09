@@ -8,6 +8,11 @@ namespace Scott_sVendingMachine
 {
     public class VendingMachine
     {
+
+        //TODO
+        //Legge til insert money meny valg fra start.
+        //lage en CLass for alle CW meldinger
+        //show inventory menu choise
         public List<Confectionary> Inventory {get; private set;} = new()
         {
             new Confectionary('1', "Snickers", 5, 25),
@@ -37,30 +42,23 @@ namespace Scott_sVendingMachine
 
                             payment.MakingPayment(paymentChoise, productChoise);
 
-                            if (paymentChoise == 1)
-                            {
-                                Console.WriteLine($"\nPayment with {PaymentID.Vipps} complete");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"\nPayment with {PaymentID.Cash} complete");
-                            }
-
-                            Console.WriteLine($"Giving out {productChoise}");
+                            string productName = ProductName();
+                            Console.WriteLine($"Giving out {productName}");
+                            payment.Money -= GettingProductPrice(productChoise);
 
 
                             if (payment.Money > 0)
                             {
-                                payment.GivesMoneyBack();
+                                payment.ReturningChange();
                             }
                         }
                         else
                         {
-                            Console.WriteLine($"{productChoise} is out of stock, please choose another product.");
+                            Console.WriteLine($"{productChoise} is out of stock, please choose another inventoryItem.");
                         }
                         break;
                     case '2':
-                        payment.GivesMoneyBack();
+                        payment.ReturningChange();
                         break;
                     case '3':
                         keeprunning = false;
@@ -69,6 +67,20 @@ namespace Scott_sVendingMachine
 
             }
 
+        }
+        //have to change Inventory List to Dictionary to have the ID of product work!
+        private string ProductName(char productChoise)
+        {
+            string productName = "";
+            foreach (Confectionary inventoryItem in Inventory)
+            {
+                if (inventoryItem.Name == productChoise)
+                {
+                    productName = inventoryItem.Name;
+                }
+                
+            }
+            return productName;
         }
 
         private bool CheckInventory(char productChoise)
@@ -92,7 +104,7 @@ namespace Scott_sVendingMachine
         private void MainMenu()
         {
             Console.WriteLine("\nWelcome! Please choose a option below:");
-            Console.WriteLine("1: Choose product");
+            Console.WriteLine("1: Choose inventoryItem");
             Console.WriteLine("2: Gives money back");
             Console.WriteLine("3: Exit");
             Console.WriteLine("-------");
@@ -117,6 +129,19 @@ namespace Scott_sVendingMachine
             Console.WriteLine("2: Kitkat");
             Console.WriteLine("3: Milkyway");
             Console.Write("\n> ");
+        }
+
+        public int GettingProductPrice(char productChoise)
+        {
+            int productPrice = 0;
+            foreach (Confectionary inventoryItem in Inventory)
+            {
+                if (productChoise == inventoryItem.ProductID)
+                {
+                    productPrice = inventoryItem.Price;
+                }
+            }
+            return productPrice;
         }
 
         public List<Confectionary> GetList()
