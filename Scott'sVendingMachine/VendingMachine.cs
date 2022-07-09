@@ -13,24 +13,15 @@ namespace Scott_sVendingMachine
         //Legge til insert money meny valg fra start.
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
-        //change List til Dictionary
+        //Add Console.Clear() after each step and a thread sleep.
 
         public Dictionary<char, Confectionary> Inventory { get; set; } = new()
         {
-            {'1', new Confectionary( "Snickers", 5, 25) },
-            {'2', new Confectionary( "Kitkat", 5, 25) },
-            {'3', new Confectionary( "Milkyway", 5, 25) },
+            {'1', new Confectionary( "Snickers", 2, 25) },
+            {'2', new Confectionary( "Kitkat", 2, 35) },
+            {'3', new Confectionary( "Milkyway",35, 30) },
         };
        
-
-        //public List<Confectionary> Inventory { get; private set; } = new()
-        //{
-        //    new Confectionary( "Snickers", 5, 25),
-        //    new Confectionary( "Kitkat", 5, 20),
-        //    new Confectionary( "Milkyway", 5, 30),
-        //};
-
-
         Payment payment = new();
 
         public void Start()
@@ -43,7 +34,7 @@ namespace Scott_sVendingMachine
                 switch (userInput)
                 {
                     case '1':
-                        ChooseProduct();
+                        Console.WriteLine(ChooseProduct());
                         char productChoise = Console.ReadKey().KeyChar;
                         if (CheckInventory(productChoise) == true)
                         {
@@ -53,7 +44,7 @@ namespace Scott_sVendingMachine
                             payment.MakingPayment(paymentChoise, productChoise);
 
                             string productName = ProductName(productChoise);
-                            Console.WriteLine($"Giving out {productName}");
+                            Console.WriteLine($"\n||--Giving out {productName}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);
 
 
@@ -64,7 +55,7 @@ namespace Scott_sVendingMachine
                         }
                         else
                         {
-                            Console.WriteLine($"{productChoise} is out of stock, please choose another inventoryItem.");
+                            Console.WriteLine($"\n{ProductName(productChoise)} is out of stock, please choose another product.");
                         }
                         break;
                     case '2':
@@ -74,11 +65,10 @@ namespace Scott_sVendingMachine
                         keeprunning = false;
                         break;
                 }
-
+                Thread.Sleep(4000);
             }
 
         }
-        //have to change Inventory List to Dictionary to have the ID of product work!
         private string ProductName(char productChoise)
         {
             string productName = "";
@@ -113,14 +103,14 @@ namespace Scott_sVendingMachine
 
         private void MainMenu()
         {
-            Console.WriteLine("\nWelcome! Please choose a option below:");
-            Console.WriteLine("1: Choose inventoryItem");
-            Console.WriteLine("2: Gives money back");
+            Console.WriteLine("\n   --Welcome--\nPlease choose an option below:\n");
+            Console.WriteLine("1: Choose product");
+            Console.WriteLine("2: Give money back");
             Console.WriteLine("3: Exit");
-            Console.WriteLine("-------");
-            Console.WriteLine($"Inserted money: {payment.Money}");
-            Console.WriteLine("-------\n\n");
-            Console.Write("\n> ");
+            Console.WriteLine("-------------------");
+            Console.WriteLine($"Inserted money: {payment.Money} |");
+            Console.WriteLine("-------------------\n");
+            Console.Write("> ");
 
                             
                 //Console.WriteLine("\n\nAvailable commands:");
@@ -133,12 +123,14 @@ namespace Scott_sVendingMachine
                 //Console.WriteLine("-------\n\n");
         }
 
-        public void ChooseProduct()
+        public string ChooseProduct()
         {
-            Console.WriteLine($"\n1: {Inventory.Values}");
-            Console.WriteLine("2: Kitkat");
-            Console.WriteLine("3: Milkyway");
-            Console.Write("\n> ");
+            string products = "";
+            foreach (KeyValuePair<char, Confectionary> item in Inventory)
+            {
+                products += $"\n{item.Key}: --{item.Value.Name}-- [Price: {item.Value.Price}$]";
+            }
+            return products;
         }
 
         public int GettingProductPrice(char productChoise)
