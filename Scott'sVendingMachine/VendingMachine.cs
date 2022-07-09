@@ -13,6 +13,8 @@ namespace Scott_sVendingMachine
         //Legge til insert money meny valg fra start.
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
+        //change List til Dictionary
+        public Dictionary<Confectionary> Inventory {get; private set;} = new();
         public List<Confectionary> Inventory {get; private set;} = new()
         {
             new Confectionary('1', "Snickers", 5, 25),
