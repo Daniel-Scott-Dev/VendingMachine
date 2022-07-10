@@ -8,13 +8,12 @@
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
         //Add Console.Clear() after each step and a thread sleep.
-        //Add random Color to "Welcome" text in main menu in a while loop
 
         public Dictionary<char, Confectionary> Inventory { get; set; } = new()
         {
             {'1', new Confectionary( "Snickers", 2, 25) },
             {'2', new Confectionary( "Kitkat", 2, 35) },
-            {'3', new Confectionary( "Milkyway",35, 30) },
+            {'3', new Confectionary( "Milkyway",3, 30) },
         };
 
         Payment payment = new();
@@ -29,24 +28,23 @@
                 switch (userInput)
                 {
                     case '1':
+                        Console.Clear();
                         Console.WriteLine(ChooseProduct());
                         char productChoise = Console.ReadKey().KeyChar;
+                        Console.Clear();
                         if (CheckInventory(productChoise) == true)
                         {
                             Console.WriteLine($"\nplease choose payment type:\n1: {PaymentID.Vipps}\n2: {PaymentID.Cash}\n");
                             char paymentChoise = Console.ReadKey().KeyChar;
+                            Console.Clear();
 
                             payment.MakingPayment(paymentChoise, productChoise);
 
                             string productName = ProductName(productChoise);
+                            Console.Beep();
                             Console.WriteLine($"\n||--Giving out {productName}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);
 
-
-                            if (payment.Money > 0)
-                            {
-                                payment.ReturningChange();
-                            }
                         }
                         else
                         {
@@ -55,6 +53,8 @@
                         break;
                     case '2':
                         payment.ReturningChange();
+                        Console.Beep();
+                        Thread.Sleep(3000);
                         break;
                     case '3':
                         keeprunning = false;

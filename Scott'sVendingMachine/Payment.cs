@@ -9,8 +9,8 @@
         //er dette måten å løse tilgang til inventory i annen klasse?
         //ønsker ikke å lage ny instans av vendingmachine for å få tilgang her.
         //When receiving more than prodsuctprice? exeption handling? with try agian feature?
-        
-        
+
+
 
         public void MakingPayment(char paymentChoise, char productChoise)
         {
@@ -21,13 +21,14 @@
             //Vipps payment
             if (paymentChoise == '1')
             {
-                
+
                 int receivedMoney;
 
                 while (true)
                 {
-                    Console.WriteLine($"\nSend (type price amount) {productPrice}$ to Vipps number: 47661550");
+                    Console.WriteLine($"\nSend (type amount) {productPrice - Money}$ to Vipps number: 47661550");
                     receivedMoney = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
 
                     if (receivedMoney >= productPrice)
                     {
@@ -36,20 +37,21 @@
                     }
                     else
                     {
-                        Console.WriteLine($"Amount paid {receivedMoney}$ is lower than product price {productPrice}$");
-                    } 
+                        Console.WriteLine($"Amount paid {receivedMoney}$ is lower than product priceMinusCurrentBalance {productPrice}$");
+                    }
                     Thread.Sleep(1000);
                 }
                 /// Asuming payment is made to vending machine via Vipps
-                Money += Convert.ToDouble(receivedMoney);  
-                
+                Money += Convert.ToDouble(receivedMoney);
+
             }
             //Cash payment
             else if (paymentChoise == '2' && Money < productPrice)
             {
-                Console.WriteLine($"\nInsert (type moeny amount) {(Money - productPrice)}$ or more into machine slot:");
+                Console.WriteLine($"\nInsert (type money amount) {productPrice - Money}$ or more into machine slot:");
                 /// Asuming payment is made with coins or notes
                 double moneyReceived = Convert.ToDouble(Console.ReadLine());
+                Console.Clear();
 
                 Console.WriteLine($"{moneyReceived}$ received");
                 Money += moneyReceived;
@@ -61,12 +63,14 @@
         {
             if (Money > 0)
             {
-                Console.WriteLine($"{Money}$ in change payed out..");
+                Console.Clear();
+                Console.WriteLine($"\n{Money}$ in change payed out..");
                 Money = 0;
             }
             else
             {
-                Console.WriteLine($"No funds to pay out. Current balance: {Money}$");
+                Console.Clear();
+                Console.WriteLine($"\nNo funds to pay out. Current balance: {Money}$");
             }
         }
     }
