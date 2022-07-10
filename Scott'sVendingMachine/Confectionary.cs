@@ -18,5 +18,10 @@ namespace Scott_sVendingMachine
             Stock = stock;
             Price = price;
         }
+
+        public void Test()
+        {
+            
+        }
     }
 }

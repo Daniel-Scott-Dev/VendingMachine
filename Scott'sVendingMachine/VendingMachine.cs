@@ -63,37 +63,7 @@
             }
 
         }
-        private string ProductName(char productChoise)
-        {
-            string productName = "";
-            foreach (KeyValuePair<char, Confectionary> inventoryItem in Inventory)
-            {
-                if (inventoryItem.Key == productChoise)
-                {
-                    productName = inventoryItem.Value.Name;
-                }
 
-            }
-            return productName;
-        }
-
-        private bool CheckInventory(char productChoise)
-        {
-            bool inventoryResult = false;
-            foreach (KeyValuePair<char, Confectionary> product in Inventory)
-            {
-                if (product.Key == productChoise && product.Value.Stock > 0)
-                {
-                    inventoryResult = true;
-                    return inventoryResult;
-                }
-                else if (product.Key == productChoise && product.Value.Stock == 0)
-                {
-                    inventoryResult = false;
-                }
-            }
-            return inventoryResult;
-        }
 
         private void MainMenu()
         {
@@ -133,6 +103,38 @@
             //Console.WriteLine("-------");
             //Console.WriteLine("Inserted money: " + money);
             //Console.WriteLine("-------\n\n");
+        }
+
+        private string ProductName(char productChoise)
+        {
+            string productName = "";
+            foreach (KeyValuePair<char, Confectionary> inventoryItem in Inventory)
+            {
+                if (inventoryItem.Key == productChoise)
+                {
+                    productName = inventoryItem.Value.Name;
+                }
+
+            }
+            return productName;
+        }
+
+        private bool CheckInventory(char productChoise)
+        {
+            bool inventoryResult = false;
+            foreach (KeyValuePair<char, Confectionary> product in Inventory)
+            {
+                if (product.Key == productChoise && product.Value.Stock > 0)
+                {
+                    inventoryResult = true;
+                    return inventoryResult;
+                }
+                else if (product.Key == productChoise && product.Value.Stock == 0)
+                {
+                    inventoryResult = false;
+                }
+            }
+            return inventoryResult;
         }
 
         public string ChooseProduct()
