@@ -8,7 +8,7 @@
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
         //Add WriteLine Animation with thread.sleep when giving out product.
-        public Dictionary<char, Confectionary> Inventory { get; set; } = new()
+        public Dictionary<char, Confectionary> Inventory { get; private set; } = new()
         {
             {'1', new Confectionary( "Snickers", 2, 25) },
             {'2', new Confectionary( "Kitkat", 2, 35) },

@@ -29,7 +29,7 @@
                         receivedMoney = Convert.ToInt32(Console.ReadLine());
                         Console.Clear();
 
-                        if (receivedMoney >= productPrice)
+                        if (receivedMoney >= productPrice - Money)
                         {
                             Console.WriteLine($"\nPayment through {PaymentID.Vipps} received\n");
                             break;
