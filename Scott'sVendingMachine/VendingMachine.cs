@@ -7,8 +7,7 @@
         //Legge til insert money meny valg fra start.
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
-        //Add Console.Clear() after each step and a thread sleep.
-
+        //Add WriteLine Animation with thread.sleep when giving out product.
         public Dictionary<char, Confectionary> Inventory { get; set; } = new()
         {
             {'1', new Confectionary( "Snickers", 2, 25) },
@@ -158,10 +157,5 @@
             }
             return productPrice;
         }
-
-        //public List<Confectionary> GetList()
-        //{
-        //    return Inventory;
-        //}
     }
 }
