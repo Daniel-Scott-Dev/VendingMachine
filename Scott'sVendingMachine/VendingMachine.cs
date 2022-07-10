@@ -33,7 +33,7 @@
                         Console.Clear();
                         if (CheckInventory(productChoise) == true)
                         {
-                            Console.WriteLine($"\nplease choose payment type:\n1: {PaymentID.Vipps}\n2: {PaymentID.Cash}\n");
+                            Console.WriteLine(DisplayPaymentOptions());
                             char paymentChoise = Console.ReadKey().KeyChar;
                             Console.Clear();
 
@@ -64,6 +64,7 @@
 
         }
 
+       
 
         private void MainMenu()
         {
@@ -158,6 +159,11 @@
                 }
             }
             return productPrice;
+        }
+        
+        public static string DisplayPaymentOptions()
+        {
+           return $"\nplease choose payment type:\n1: {PaymentID.Vipps}\n2: {PaymentID.Cash}\n";
         }
     }
 }
