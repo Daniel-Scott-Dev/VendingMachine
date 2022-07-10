@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Scott_sVendingMachine
+﻿namespace Scott_sVendingMachine
 {
     public class VendingMachine
     {
@@ -14,6 +8,7 @@ namespace Scott_sVendingMachine
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
         //Add Console.Clear() after each step and a thread sleep.
+        //Add random Color to "Welcome" text in main menu in a while loop
 
         public Dictionary<char, Confectionary> Inventory { get; set; } = new()
         {
@@ -21,7 +16,7 @@ namespace Scott_sVendingMachine
             {'2', new Confectionary( "Kitkat", 2, 35) },
             {'3', new Confectionary( "Milkyway",35, 30) },
         };
-       
+
         Payment payment = new();
 
         public void Start()
@@ -65,7 +60,7 @@ namespace Scott_sVendingMachine
                         keeprunning = false;
                         break;
                 }
-                Thread.Sleep(4000);
+                Thread.Sleep(3000);
             }
 
         }
@@ -78,7 +73,7 @@ namespace Scott_sVendingMachine
                 {
                     productName = inventoryItem.Value.Name;
                 }
-                
+
             }
             return productName;
         }
@@ -103,24 +98,42 @@ namespace Scott_sVendingMachine
 
         private void MainMenu()
         {
-            Console.WriteLine("\n   --Welcome--\nPlease choose an option below:\n");
-            Console.WriteLine("1: Choose product");
-            Console.WriteLine("2: Give money back");
-            Console.WriteLine("3: Exit");
-            Console.WriteLine("-------------------");
-            Console.WriteLine($"Inserted money: {payment.Money} |");
-            Console.WriteLine("-------------------\n");
-            Console.Write("> ");
+            Random random = new();
 
-                            
-                //Console.WriteLine("\n\nAvailable commands:");
-                //Console.WriteLine("insert (money) - Money put into money slot");
-                //Console.WriteLine("order (snickers, kitkat, milkyway) - Order from machines buttons");
-                //Console.WriteLine("sms order (snickers, kitkat, milkyway) - Order sent by sms");
-                //Console.WriteLine("recall - gives money back");
-                //Console.WriteLine("-------");
-                //Console.WriteLine("Inserted money: " + money);
-                //Console.WriteLine("-------\n\n");
+            bool runLoop = true;
+            int loopCounter = 10;
+            while (runLoop)
+            { 
+                Console.Clear();
+                Console.ForegroundColor = (ConsoleColor)random.Next(1, 16);
+                Console.WriteLine("\n   --WELCOME--\n");
+                Console.ResetColor();
+                Thread.Sleep(90);
+                 loopCounter -= 1;
+                if (loopCounter == 0)
+                {
+                    runLoop = false;
+                }
+            }
+
+                Console.WriteLine("Please choose an option below:");
+                Console.WriteLine("1: Choose product");
+                Console.WriteLine("2: Give money back");
+                Console.WriteLine("3: Exit");
+                Console.WriteLine("-------------------");
+                Console.WriteLine($"Inserted money: {payment.Money} |");
+                Console.WriteLine("-------------------\n");
+                Console.Write("> ");
+
+
+            //Console.WriteLine("\n\nAvailable commands:");
+            //Console.WriteLine("insert (money) - Money put into money slot");
+            //Console.WriteLine("order (snickers, kitkat, milkyway) - Order from machines buttons");
+            //Console.WriteLine("sms order (snickers, kitkat, milkyway) - Order sent by sms");
+            //Console.WriteLine("recall - gives money back");
+            //Console.WriteLine("-------");
+            //Console.WriteLine("Inserted money: " + money);
+            //Console.WriteLine("-------\n\n");
         }
 
         public string ChooseProduct()
