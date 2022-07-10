@@ -106,7 +106,7 @@
             //Console.WriteLine("-------\n\n");
         }
 
-        private string ProductName(char productChoise)
+        public string ProductName(char productChoise)
         {
             string productName = "";
             foreach (KeyValuePair<char, Confectionary> inventoryItem in Inventory)
