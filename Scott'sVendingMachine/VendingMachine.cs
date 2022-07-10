@@ -103,27 +103,27 @@
             bool runLoop = true;
             int loopCounter = 10;
             while (runLoop)
-            { 
+            {
                 Console.Clear();
                 Console.ForegroundColor = (ConsoleColor)random.Next(1, 16);
                 Console.WriteLine("\n   --WELCOME--\n");
                 Console.ResetColor();
                 Thread.Sleep(90);
-                 loopCounter -= 1;
+                loopCounter -= 1;
                 if (loopCounter == 0)
                 {
                     runLoop = false;
                 }
             }
 
-                Console.WriteLine("Please choose an option below:");
-                Console.WriteLine("1: Choose product");
-                Console.WriteLine("2: Give money back");
-                Console.WriteLine("3: Exit");
-                Console.WriteLine("-------------------");
-                Console.WriteLine($"Inserted money: {payment.Money} |");
-                Console.WriteLine("-------------------\n");
-                Console.Write("> ");
+            Console.WriteLine("Please choose an option below:");
+            Console.WriteLine("1: Choose product");
+            Console.WriteLine("2: Give money back");
+            Console.WriteLine("3: Exit");
+            Console.WriteLine("-------------------");
+            Console.WriteLine($"Inserted money: {payment.Money} |");
+            Console.WriteLine("-------------------\n");
+            Console.Write("> ");
 
 
             //Console.WriteLine("\n\nAvailable commands:");
