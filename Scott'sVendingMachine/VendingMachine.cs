@@ -8,6 +8,7 @@
         //lage en CLass for alle CW meldinger
         //show inventory menu choise
         //Add WriteLine Animation with thread.sleep when giving out product.
+        //subtract a product when bought
         public Dictionary<char, Confectionary> Inventory { get; private set; } = new()
         {
             {'1', new Confectionary( "Snickers", 2, 25) },
@@ -31,19 +32,18 @@
                         Console.WriteLine(ChooseProduct());
                         char productChoise = Console.ReadKey().KeyChar;
                         Console.Clear();
+
                         if (CheckInventory(productChoise) == true)
                         {
                             Console.WriteLine(DisplayPaymentOptions());
                             char paymentChoise = Console.ReadKey().KeyChar;
                             Console.Clear();
 
-                            payment.MakingPayment(paymentChoise, productChoise);
+                            payment.MakingPayment(paymentChoise, productChoise, Inventory);
 
-                            string productName = ProductName(productChoise);
                             Console.Beep();
-                            Console.WriteLine($"\n||--Giving out {productName}--||\n");
+                            Console.WriteLine($"\n||--Giving out {ProductName(productChoise)}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);
-
                         }
                         else
                         {
@@ -51,12 +51,18 @@
                         }
                         break;
                     case '2':
+                        payment.DepositMoney();
+                        break;
+                    case '3':
                         payment.ReturningChange();
                         Console.Beep();
                         Thread.Sleep(3000);
                         break;
-                    case '3':
+                    case '4':
                         keeprunning = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid menu choise");
                         break;
                 }
                 Thread.Sleep(3000);
@@ -64,7 +70,7 @@
 
         }
 
-       
+
 
         private void MainMenu()
         {
@@ -88,8 +94,9 @@
 
             Console.WriteLine("Please choose an option below:");
             Console.WriteLine("1: Choose product");
-            Console.WriteLine("2: Give money back");
-            Console.WriteLine("3: Exit");
+            Console.WriteLine("2: Make a deposit");
+            Console.WriteLine("3: Give money back");
+            Console.WriteLine("4: Exit");
             Console.WriteLine("-------------------");
             Console.WriteLine($"Inserted money: {payment.Money} |");
             Console.WriteLine("-------------------\n");
@@ -160,10 +167,10 @@
             }
             return productPrice;
         }
-        
+
         public static string DisplayPaymentOptions()
         {
-           return $"\nplease choose payment type:\n1: {PaymentID.Vipps}\n2: {PaymentID.Cash}\n";
+            return $"\nplease choose payment type:\n1: {PaymentID.Vipps}\n2: {PaymentID.Cash}\n";
         }
     }
 }

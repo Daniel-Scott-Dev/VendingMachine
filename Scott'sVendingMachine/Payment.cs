@@ -4,18 +4,18 @@
     {
         public double Money { get; set; }
         //TODO:
-        //er dette måten å løse tilgang til inventory i annen klasse? for hver instans så vil inventory øke.
-        //ønsker ikke å lage ny instans av vendingmachine for å få tilgang her.
-        //When receiving more than prodsuctprice? exeption handling? with try agian feature?
 
-
-
-        public void MakingPayment(char paymentChoise, char productChoise)
-        {   //Hvordan klare seg uten denne instansen.
-            VendingMachine vendingMachine = new();
-
-            int productPrice = vendingMachine.GettingProductPrice(productChoise);
-
+        public void MakingPayment(char paymentChoise, char productChoise, Dictionary<char, Confectionary> Inventory)
+        {   
+            //finding product price
+            int productPrice = 0;
+            foreach (var product in Inventory)
+            {
+                if (productChoise == product.Key)
+                {
+                    productPrice = product.Value.Price;
+                }
+            }
             //checking current balance, if payment is needed
             if (Money < productPrice)
             {
@@ -56,6 +56,20 @@
                     Money += moneyReceived;
                 }
             }
+            else
+            {
+                Console.WriteLine($"Current balance: ({Money})\nPaying for product with deposited funds.");
+                Money -= productPrice;
+            }
+        }
+
+        public void DepositMoney()
+        {
+            Console.Clear();
+            Console.WriteLine("Please insert (type amount) coins or notes: ");
+            double moneyReceived = Convert.ToDouble(Console.ReadLine());
+            Money += moneyReceived;
+            Console.WriteLine($"{moneyReceived}$ received");
         }
 
         public void ReturningChange()
@@ -72,5 +86,7 @@
                 Console.WriteLine($"\nNo funds to pay out. Current balance: {Money}$");
             }
         }
+
+        
     }
 }
