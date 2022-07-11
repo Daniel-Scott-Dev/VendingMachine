@@ -4,11 +4,8 @@
     {
 
         //TODO
-        //Legge til insert money meny valg fra start.
         //lage en CLass for alle CW meldinger
-        //show inventory menu choise
         //Add WriteLine Animation with thread.sleep when giving out product.
-        //subtract a product when bought
         public Dictionary<char, Confectionary> Inventory { get; private set; } = new()
         {
             {'1', new Confectionary( "Snickers", 2, 25) },
@@ -33,7 +30,7 @@
                         char productChoise = Console.ReadKey().KeyChar;
                         Console.Clear();
 
-                        if (CheckInventory(productChoise) == true)
+                        if (CheckInventory(productChoise) == true && payment.Money < GettingProductPrice(productChoise))
                         {
                             Console.WriteLine(DisplayPaymentOptions());
                             char paymentChoise = Console.ReadKey().KeyChar;
@@ -44,6 +41,14 @@
                             Console.Beep();
                             Console.WriteLine($"\n||--Giving out {ProductName(productChoise)}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);
+                            UpdateInventory(productChoise);
+                        }
+                        else if (CheckInventory(productChoise) == true && payment.Money > GettingProductPrice(productChoise))
+                        {
+                            Console.Beep();
+                            Console.WriteLine($"\n||--Giving out {ProductName(productChoise)}--||\n");
+                            payment.Money -= GettingProductPrice(productChoise);
+                            UpdateInventory(productChoise);
                         }
                         else
                         {
@@ -69,8 +74,6 @@
             }
 
         }
-
-
 
         private void MainMenu()
         {
@@ -166,6 +169,17 @@
                 }
             }
             return productPrice;
+        }
+
+        public void UpdateInventory(char productChoise)
+        {
+            foreach (var product in Inventory)
+            {
+                if (productChoise == product.Key)
+                {
+                    product.Value.Stock -= 1;
+                }
+            }
         }
 
         public static string DisplayPaymentOptions()

@@ -8,14 +8,8 @@
         public void MakingPayment(char paymentChoise, char productChoise, Dictionary<char, Confectionary> Inventory)
         {   
             //finding product price
-            int productPrice = 0;
-            foreach (var product in Inventory)
-            {
-                if (productChoise == product.Key)
-                {
-                    productPrice = product.Value.Price;
-                }
-            }
+            int productPrice = GettingProductPrice(productChoise, Inventory);
+
             //checking current balance, if payment is needed
             if (Money < productPrice)
             {
@@ -58,9 +52,22 @@
             }
             else
             {
-                Console.WriteLine($"Current balance: ({Money})\nPaying for product with deposited funds.");
+                Console.WriteLine($"Current balance: ({Money}$)\nPaying for product with deposited funds.");
                 Money -= productPrice;
             }
+        }
+
+        private int GettingProductPrice(char productChoise, Dictionary<char, Confectionary> Inventory)
+        {
+            int productPrice = 0;
+            foreach (var product in Inventory)
+            {
+                if (productChoise == product.Key)
+                {
+                    productPrice = product.Value.Price;
+                }
+            }
+            return productPrice;
         }
 
         public void DepositMoney()
