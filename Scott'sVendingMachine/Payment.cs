@@ -23,17 +23,21 @@
                         receivedMoney = Convert.ToInt32(Console.ReadLine());
                         Money += receivedMoney;
                         Console.Clear();
+                        Console.WriteLine($"\nPayment of {receivedMoney}$ through {PaymentID.Vipps} received\n");
+                        Thread.Sleep(2000);
+                        Console.Clear();
 
-                        if (Money >= productPrice)
+                        if (Money < productPrice)
                         {
-                            Console.WriteLine($"\nPayment through {PaymentID.Vipps} received\n");
-                            break;
+                            Console.Clear();
+                            Console.WriteLine($"Total deposited amount ({Money}$) is less than product price: {productPrice}$" +
+                                $"\nPlease Vipps {productPrice - Money}$ to complete purchase");
                         }
                         else
-                        {
-                            Console.WriteLine($"Amount received ({receivedMoney}$) is lower than product price: {productPrice}$, please Vipps {productPrice - Money}$ to complete purchase");
-                        }
+                            break;
+
                         Thread.Sleep(1000);
+                        
                     }
 
                 }
