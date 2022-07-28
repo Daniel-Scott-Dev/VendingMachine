@@ -32,14 +32,27 @@
 
                         if (CheckInventory(productChoise) == true && payment.Money < GettingProductPrice(productChoise))
                         {
-                            Console.WriteLine(DisplayPaymentOptions());
-                            char paymentChoise = Console.ReadKey().KeyChar;
-                            Console.Clear();
+                            while (true)
+                            {
+                                Console.Clear();
+                                Console.WriteLine(DisplayPaymentOptions());
+                                char paymentChoise = Console.ReadKey().KeyChar;
+                                Console.Clear();
 
-                            payment.MakingPayment(paymentChoise, productChoise, Inventory);
-
+                                if (paymentChoise is '1' or '2')
+                                {
+                                    payment.MakingPayment(paymentChoise, productChoise, Inventory);
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\nInvalid menu choise. Try again.");
+                                }
+                                Thread.Sleep(2000);
+                            }
                             //en sjekk for om produktet er betalt før den leveres her?
                             //eller hvis feil valg i payment options (3 osv..)
+                            Thread.Sleep(2000);
                             Console.Beep();
                             Console.WriteLine($"\n||--Giving out {ProductName(productChoise)}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);
