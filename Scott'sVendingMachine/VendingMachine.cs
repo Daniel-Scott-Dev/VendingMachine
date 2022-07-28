@@ -39,6 +39,7 @@
 
                             payment.MakingPayment(paymentChoise, productChoise, Inventory);
 
+                            //en sjekk for om produktet er betalt før den leveres her?
                             Console.Beep();
                             Console.WriteLine($"\n||--Giving out {ProductName(productChoise)}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);
@@ -62,7 +63,7 @@
                     case '3':
                         payment.ReturningChange();
                         Console.Beep();
-                        Thread.Sleep(3000);
+                        Thread.Sleep(2000);
                         break;
                     case '4':
                         keeprunning = false;

@@ -21,21 +21,20 @@
                     {
                         Console.WriteLine($"\nSend (type amount) {productPrice - Money}$ to Vipps number: 47661550");
                         receivedMoney = Convert.ToInt32(Console.ReadLine());
+                        Money += receivedMoney;
                         Console.Clear();
 
-                        if (receivedMoney >= productPrice - Money)
+                        if (Money >= productPrice)
                         {
                             Console.WriteLine($"\nPayment through {PaymentID.Vipps} received\n");
                             break;
                         }
                         else
                         {
-                            Console.WriteLine($"Amount paid {receivedMoney}$ is lower than product priceMinusCurrentBalance {productPrice}$");
+                            Console.WriteLine($"Amount received ({receivedMoney}$) is lower than product price: {productPrice}$, please Vipps {productPrice - Money}$ to complete purchase");
                         }
                         Thread.Sleep(1000);
                     }
-                    // Asuming payment is made to vending machine via Vipps
-                    Money += Convert.ToDouble(receivedMoney);
 
                 }
                 //Cash payment
@@ -44,10 +43,15 @@
                     Console.WriteLine($"\nInsert (type money amount) {productPrice - Money}$ or more into machine slot:");
                     /// Asuming payment is made with coins or notes
                     double moneyReceived = Convert.ToDouble(Console.ReadLine());
+                    Money += moneyReceived;
                     Console.Clear();
 
                     Console.WriteLine($"{moneyReceived}$ received");
-                    Money += moneyReceived;
+                    
+                }
+                else
+                {
+                    Console.WriteLine("No valid payment choise was made. Returning to main menu.");
                 }
             }
             else

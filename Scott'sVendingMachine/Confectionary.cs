@@ -19,9 +19,6 @@ namespace Scott_sVendingMachine
             Price = price;
         }
 
-        public void Test()
-        {
-            
-        }
+        
     }
 }
