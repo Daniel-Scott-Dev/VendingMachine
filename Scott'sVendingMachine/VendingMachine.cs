@@ -6,6 +6,7 @@
         //TODO
         //lage en CLass for alle CW meldinger
         //Add WriteLine Animation with thread.sleep when giving out product.
+        //Fix ability to spend more than I have (minus values)
         public Dictionary<char, Confectionary> Inventory { get; private set; } = new()
         {
             {'1', new Confectionary( "Snickers", 2, 25) },
@@ -98,10 +99,10 @@
             Console.WriteLine("Please choose an option below:");
             Console.WriteLine("1: Choose product");
             Console.WriteLine("2: Make a deposit");
-            Console.WriteLine("3: Give money back");
+            Console.WriteLine("3: Pay out change");
             Console.WriteLine("4: Exit");
             Console.WriteLine("-------------------");
-            Console.WriteLine($"Inserted money: {payment.Money} |");
+            Console.WriteLine($"Inserted money: {payment.Money}$ |");
             Console.WriteLine("-------------------\n");
             Console.Write("> ");
 
