@@ -38,7 +38,8 @@
 
                             payment.MakingPayment(paymentChoise, productChoise, Inventory);
 
-                            //en sjekk for om produktet er betalt før den leveres her? eller hvis feil valg i payment options (3 osv..)
+                            //en sjekk for om produktet er betalt før den leveres her?
+                            //eller hvis feil valg i payment options (3 osv..)
                             Console.Beep();
                             Console.WriteLine($"\n||--Giving out {ProductName(productChoise)}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);

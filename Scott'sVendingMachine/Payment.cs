@@ -80,7 +80,7 @@
             Console.WriteLine("Please insert (type amount) coins or notes: ");
             double moneyReceived = Convert.ToDouble(Console.ReadLine());
             Money += moneyReceived;
-            Console.WriteLine($"{moneyReceived}$ received");
+            Console.WriteLine($"{moneyReceived}$ received.\nCurrent balance: {Money}$");
         }
 
         public void ReturningChange()
@@ -88,13 +88,17 @@
             if (Money > 0)
             {
                 Console.Clear();
-                Console.WriteLine($"\n{Money}$ in change payed out..");
+                Console.WriteLine($"\n{Money}$ payed out..");
+                Thread.Sleep(2000);
+                Console.WriteLine("\nPlease collect your change below");
                 Money = 0;
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"\nNo funds to pay out. Current balance: {Money}$");
+                Console.WriteLine($"\nNo funds to pay out.");
+                Thread.Sleep(2000);
+                Console.WriteLine($"Current balance: {Money}$");
             }
         }
 
