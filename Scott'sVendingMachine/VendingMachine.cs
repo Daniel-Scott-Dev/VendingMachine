@@ -6,7 +6,6 @@
         //TODO
         //lage en CLass for alle CW meldinger
         //Add WriteLine Animation with thread.sleep when giving out product.
-        //Fix ability to spend more than I have (minus values)
         public Dictionary<char, Confectionary> Inventory { get; private set; } = new()
         {
             {'1', new Confectionary( "Snickers", 2, 25) },
@@ -39,7 +38,7 @@
 
                             payment.MakingPayment(paymentChoise, productChoise, Inventory);
 
-                            //en sjekk for om produktet er betalt før den leveres her?
+                            //en sjekk for om produktet er betalt før den leveres her? eller hvis feil valg i payment options (3 osv..)
                             Console.Beep();
                             Console.WriteLine($"\n||--Giving out {ProductName(productChoise)}--||\n");
                             payment.Money -= GettingProductPrice(productChoise);
